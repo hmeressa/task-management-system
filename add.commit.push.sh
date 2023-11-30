@@ -4,6 +4,6 @@ for app in task-management-system-back-end task-management-system-front-end; do
     cd $app
     git add .
     git commit -m "Commit message for $app changes"
-    git push origin master
+    git push origin main
     cd ..
 done
