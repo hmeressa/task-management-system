@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Backend service
+  task-management-system-back-end:
+    build:
+      context: ./task-management-system-back-end
+      dockerfile: Dockerfile  
+    container_name: task-management-system-back-end
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - database-service
+
+  # Database service
+  database-service:
+    image: postgres:latest
+    container_name: database-service
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgresdb
+    ports:
+      - "5432:5432" 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  # Frontend service
+  task-management-system-front-end:
+    build:
+      context: ./task-management-system-front-end
+      dockerfile: Dockerfile  
+    container_name: task-management-system-front-end
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data: 
+
+  
