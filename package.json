@@ -2,7 +2,7 @@
   "private": true,
   "workspaces": [
     "task-management-system-front-end",
-    "task-management-system-back-end"
+    "task-management-system-back-end" 
   ],
   "scripts": {
     "build": "yarn workspace task-management-system-front-end build && yarn workspace task-management-system-back-end build"

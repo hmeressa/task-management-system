@@ -32,7 +32,7 @@ services:
       context: ./task-management-system-front-end
       dockerfile: Dockerfile  
     container_name: task-management-system-front-end
-    ports:
+    ports: 
       - "8000:8000"
 
 volumes:
