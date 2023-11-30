@@ -1,0 +1,80 @@
+# version: '3.8'
+
+# services:
+#   # Backend service
+#   task-management-system-back-end:
+#     build:
+#       context: ./task-management-system-back-end
+#       dockerfile: Dockerfile  
+#     container_name: task-management-system-back-end
+#     restart: always
+#     ports:
+#       - 3000:3000
+#     depends_on:
+#       - database-service
+
+#   # Database service
+#   database-service:
+#     image: postgres:latest
+#     container_name: database-service
+#     environment:
+#       POSTGRES_USER: username
+#       POSTGRES_PASSWORD: password
+#       POSTGRES_DB: postgresdb
+#     ports:
+#       - "5432:5432" 
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+    
+#   # Frontend service
+#   task-management-system-front-end:
+#     build:
+#       context: ./task-management-system-front-end
+#       dockerfile: Dockerfile  
+#     container_name: task-management-system-front-end
+#     ports: 
+#       - "8000:8000"
+
+# volumes:
+#   postgres_data: 
+
+  
+#   render.YML file 
+
+# render.yml
+
+services:
+  - name: task-management-system-back-end
+    type: web
+    buildCommand: docker build -t task-management-system-back-end ./task-management-system-back-end
+    startCommand: docker run -p 3000:3000 task-management-system-back-end
+    env:
+      - key: NODE_ENV
+        value: production
+    dependsOn:
+      - name: database-service
+
+  - name: database-service
+    type: postgres
+    plan: hobby
+    env:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgresdb
+    ports:
+      - 5432:5432
+    volumes:
+      - name: postgres_data
+        path: /var/lib/postgresql/data
+
+  - name: task-management-system-front-end
+    type: web
+    buildCommand: docker build -t task-management-system-front-end ./task-management-system-front-end
+    startCommand: docker run -p 8000:8000 task-management-system-front-end
+    env:
+      - key: NODE_ENV
+        value: production
+
+volumes:
+  - name: postgres_data
+    path: /var/lib/postgresql/data
