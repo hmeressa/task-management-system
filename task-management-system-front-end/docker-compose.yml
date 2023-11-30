@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  # Frontend service
+  task-management-system-front-end:
+    build: .
+    container_name: task-management-front-end
+    ports:
+      - "8000:8000"
+  
+      
