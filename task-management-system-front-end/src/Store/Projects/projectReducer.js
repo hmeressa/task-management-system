@@ -1,74 +1,74 @@
 import * as projectActionTypes from "./projectActionTypes";
 
-const initialState={
-    allProjects:[],
-    project:[],
-    error:'',
-    loading:false
+const initialState = {
+    allProjects: [],
+    project: [],
+    error: '',
+    loading: false
 }
 
-export const projectReducer=(state=initialState,actions)=>{
-    switch(actions.type){
-       case projectActionTypes.PROJECT_DATA_REQUEST:
-         return{
-            ...state,
-            loading:true,
+export const projectReducer = (state = initialState, actions) => {
+    switch (actions.type) {
+        case projectActionTypes.PROJECT_DATA_REQUEST:
+            return {
+                ...state,
+                loading: true,
             }
         case projectActionTypes.PROJECT_DATA_SUCCESS:
-            return{
+            return {
                 ...state,
-                loading:false,
-                allProjects:actions.payload,
+                loading: false,
+                allProjects: actions.payload,
             }
         case projectActionTypes.PROJECT_DATA_FAILURE:
-            return{
+            return {
                 ...state,
-                loading:false,
-                error:actions.payload,
+                loading: false,
+                error: actions.payload,
             }
         case projectActionTypes.GET_PROJECT_BY_ID:
-            return{
+            return {
                 ...state,
-                loading:false,
-                project:actions.payload, 
+                loading: false,
+                project: actions.payload,
             }
         case projectActionTypes.DELETE_PROJECT_BY_ID_SUCCESS:
-             return{
+            return {
                 ...state,
-                loading:false,
-                allProjects:actions.payload,
-             }
+                loading: false,
+                allProjects: actions.payload,
+            }
         case projectActionTypes.UPDATE_PROJECT_BY_ID_SUCCESS:
-                return{
-                   ...state,
-                   loading:false,
-                   allProjects:actions.payload,
-                }
-        case projectActionTypes.ADD_PROJECT_SUCCESS:
-            return{
+            return {
                 ...state,
-                loading:false,
-                allProjects:actions.payload,
+                loading: false,
+                allProjects: actions.payload,
+            }
+        case projectActionTypes.ADD_PROJECT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                allProjects: actions.payload,
             }
         case projectActionTypes.ADD_TASK_TO_PROJECT:
-            return{
+            return {
                 ...state,
-                loading:false,
-                project:actions.payload,
+                loading: false,
+                project: actions.payload,
             }
         case projectActionTypes.DELETE_TASK_ON_PROJECT:
-            return{
+            return {
                 ...state,
-                loading:false,
-                project:actions.payload,
+                loading: false,
+                project: actions.payload,
             }
         case projectActionTypes.ASSIGN_TASK_TO_USER:
-            return{
+            return {
                 ...state,
-                loading:false,
-                project:actions.payload,
+                loading: false,
+                project: actions.payload,
             }
-        default:return state;
+        default: return state;
 
     }
 }

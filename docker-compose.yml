@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+
+  # Frontend service
+  task-management-system-front-end:
+    build:
+      context: ./task-management-system-front-end
+      dockerfile: Dockerfile  
+    container_name: task-management-system-front-end
+    ports:
+      - "8000:8000"
+
   # Backend service
   task-management-system-back-end:
     build:
@@ -9,7 +19,7 @@ services:
     container_name: task-management-system-back-end
     restart: always
     ports:
-      - 3000:3000
+      - "3000:3000"
     depends_on:
       - database-service
 
@@ -25,17 +35,7 @@ services:
       - "5432:5432" 
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    
-  # Frontend service
-  task-management-system-front-end:
-    build:
-      context: ./task-management-system-front-end
-      dockerfile: Dockerfile  
-    container_name: task-management-system-front-end
-    ports:
-      - "8000:8000"
 
 volumes:
-  postgres_data: 
-
-  
+  postgres_data:
+    driver: local

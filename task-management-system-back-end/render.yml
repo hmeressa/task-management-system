@@ -1,4 +1,27 @@
 services:
-  - name: session-using-nest-js
-    buildCommand: docker build -t session-using-nest-js .
-    startCommand: docker run -p 3000:3000 session-using-nest-js
+  - name: task-management-system-back-end
+    type: web
+    buildCommand: docker build -t task-management-system-back-end ./task-management-system-back-end
+    startCommand: docker run -p 3000:3000 task-management-system-back-end
+    env:
+      - key: NODE_ENV
+        value: production
+    dependsOn:
+      - name: database-service
+
+  - name: database-service
+    type: postgres
+    plan: hobby
+    env:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgresdb
+    ports:
+      - 5432:5432
+    volumes:
+      - name: postgres_data
+        path: /var/lib/postgresql/data
+
+volumes:
+  - name: postgres_data
+    path: /var/lib/postgresql/data
