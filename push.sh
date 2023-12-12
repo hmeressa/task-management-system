@@ -6,7 +6,7 @@ PACKAGES=("task-management-system-front-end" "task-management-system-back-end")
 # Loop through each package
 for PACKAGE in "${PACKAGES[@]}"; do
     echo "Processing package: $PACKAGE"
-    # cd "packages/$PACKAGE" || exit
+    cd exit
 
     # Check if there are changes
     if git diff --quiet; then
