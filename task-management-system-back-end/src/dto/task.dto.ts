@@ -1,8 +1,5 @@
-import { IsEnum, IsNotEmpty, IsString, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { TaskStatusDto } from './taskStatus.dto';
-import { TaskStatusEnum } from 'src/utils/taskStatus.utils';
 
 export class TaskDto {
   @ApiProperty()
@@ -21,7 +18,7 @@ export class TaskDto {
   endDate: string;
 
   @ApiProperty()
-  @IsNotEmpty({ message: 'Task status must not be empty' })
-  @IsEnum(TaskStatusEnum)
-  status: TaskStatusEnum;
+  @IsNotEmpty({ message: 'Please enter project name' })
+  @IsString()
+  projectId: string;
 }

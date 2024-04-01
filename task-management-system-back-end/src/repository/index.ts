@@ -7,3 +7,4 @@ export { RolePermissionRepository } from './rolePermission.repository';
 export { TeamRepository } from './team.repository';
 export { UserTaskRepository } from './userTask.repository';
 export { ProjectMemberRepository } from './projectMember.repository';
+export { TaskStatusRepository } from './taskStatus.repository';

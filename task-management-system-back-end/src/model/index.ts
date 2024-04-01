@@ -8,3 +8,4 @@ export { RolePermissionModel } from './rolePermission.model';
 export { UserTaskModel } from './userTask.model';
 export { ProjectMemberModel } from './projectMember.model';
 export { TeamModel } from './team.model';
+export { TaskStatusModel } from './taskStatus.model';

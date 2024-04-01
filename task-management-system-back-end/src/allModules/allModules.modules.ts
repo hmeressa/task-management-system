@@ -8,6 +8,8 @@ import {
   TaskModule,
   UserTaskModule,
   RolePermissionsModule,
+  TaskStatusModule,
+  // TeamModule,
 } from '../module';
 
 @Module({
@@ -20,6 +22,8 @@ import {
     TaskModule,
     RolePermissionsModule,
     UserTaskModule,
+    TaskStatusModule,
+    // TeamModule,
   ],
   exports: [],
 })

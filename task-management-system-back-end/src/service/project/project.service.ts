@@ -4,7 +4,7 @@ import {
   ProjectDto,
   ProjectMemberDto,
   ProjectUpdateDto,
-} from 'src/dto';
+} from '../../dto';
 import { ProjectInterface } from '../../interface';
 import { PorjectRepository, ProjectMemberRepository } from '../../repository';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,7 +32,6 @@ export class ProjectService implements ProjectInterface {
       const project = this.porjectRepository.create(projectDto);
       return await this.porjectRepository.save(project);
     } catch (error) {
-      console.log('error', error);
       throw error;
     }
   }
@@ -40,15 +39,19 @@ export class ProjectService implements ProjectInterface {
   async getProject(id: string): Promise<any> {
     return await this.porjectRepository.findOne({
       where: { id: id },
+      relations: ['task.status'],
     });
   }
 
   async getProjects(): Promise<any> {
-    return await this.porjectRepository.find();
+    return await this.porjectRepository.find({ relations: ['task.status'] });
   }
 
   async getProjectByName(project: string): Promise<any> {
-    return await this.porjectRepository.findOne({ where: { name: project } });
+    return await this.porjectRepository.findOne({
+      where: { name: project },
+      relations: ['task.status'],
+    });
   }
 
   async deleteProject(id: string): Promise<any> {

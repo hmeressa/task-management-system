@@ -23,12 +23,12 @@ export class TaskService implements TaskInterface {
   async getTask(id: string): Promise<any> {
     return await this.taskRepository.findOne({
       where: { id: id },
-      relations: ['project', 'user'],
+      relations: ['project', 'status'],
     });
   }
 
   async getTasks(): Promise<any> {
-    return await this.taskRepository.find({ relations: ['project', 'user'] });
+    return await this.taskRepository.find({ relations: ['project', 'status'] });
   }
 
   async getTaskByName(name: string): Promise<any> {

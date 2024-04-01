@@ -7,8 +7,8 @@ import {
   Patch,
   NotFoundException,
   Param,
-  UseGuards,
   Query,
+  Req,
 } from '@nestjs/common';
 import { ProjectService, UserService } from '../../service';
 import {
@@ -17,6 +17,8 @@ import {
   ProjectMemberDto,
   ProjectUpdateDto,
 } from '../../dto';
+import { Request } from 'express';
+
 @Controller('project')
 export class ProjectController {
   constructor(
@@ -25,18 +27,29 @@ export class ProjectController {
   ) {}
 
   @Post()
-  async createProject(@Body() projectDto: ProjectDto): Promise<any> {
+  async createProject(
+    @Req() req: Request,
+    @Body() projectDto: ProjectDto,
+  ): Promise<any> {
     try {
-      const isExist = await this.projectService.getProjectByName(
+      const isExist: boolean = await this.projectService.getProjectByName(
         projectDto.name,
       );
       if (isExist) {
-        return new NotFoundException({
+        throw new NotFoundException({
           message: 'Something bad happened',
-          error: 'Project already exist',
+          error: 'Project already exists',
         });
       }
-      // const projectStatus = await this.
+
+      const user = await this.userService.getUser(req.body.projectOwnerId);
+      if (!user) {
+        throw new NotFoundException({
+          message: 'Something bad happened',
+          error: 'User Not Found',
+        });
+      }
+      projectDto['projectOwnerId'] = user.id;
       return await this.projectService.createProject(projectDto);
     } catch (error) {
       throw error;

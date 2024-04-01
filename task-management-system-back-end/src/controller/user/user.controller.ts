@@ -12,20 +12,11 @@ import { RoleService, UserService } from '../../service';
 import { UserDto, UserUpdateDto } from '../../dto';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import {
-  ExcludeAuthorizationGuard,
-  Permissions,
-  RolePermissionsGuard,
-  UserAuthorization,
-} from 'src/middleware';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(
-    private userService: UserService,
-    private roleService: RoleService,
-  ) {}
+  constructor(private userService: UserService) {}
 
   @Post()
   // @UseGuards(new ExcludeAuthorizationGuard())

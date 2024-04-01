@@ -9,7 +9,7 @@ import { verifyToken } from './verifyToken.util';
 import { UserService } from '../service';
 
 @Injectable()
-export class UserAuthorization implements NestMiddleware {
+export class Authorization implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {

@@ -1,11 +1,13 @@
-version: '3.8'
+version: '1.0'
 
 services:
-  # Frontend service
-  task-management-system-front-end:
-    build: .
+  frontend-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     container_name: task-management-front-end
     ports:
       - "8000:8000"
+
   
       

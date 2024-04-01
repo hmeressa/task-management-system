@@ -13,42 +13,47 @@ import {
   MailService,
   ProjectService,
   TaskService,
+  TaskStatusService,
   UserService,
 } from '../../service';
-import { sendEmailNotification } from '../../utils/sendEmailNotification';
 
 import { TaskDto, TaskUpdateDto, UserTaskDto } from '../../dto';
-import { TaskStatusEnum } from 'src/utils/taskStatus.utils';
 import { Request } from 'express';
+import { TaskModel } from 'src/model';
 
 @Controller('task')
 export class TaskController {
   constructor(
     private readonly taskService: TaskService,
     private readonly userService: UserService,
-    private readonly mailService: MailService,
+    private readonly projectService: ProjectService,
+    private readonly taskStatusService: TaskStatusService,
   ) {}
 
   @Post()
   async createTask(
     @Req() req: Request,
     @Body() taskDto: TaskDto,
-  ): Promise<any> {
-    const isExist = await this.taskService.getTaskByName(taskDto.name);
+  ): Promise<TaskModel> {
+    const isExist: boolean = await this.taskService.getTaskByName(taskDto.name);
+
     if (isExist) {
-      return new NotFoundException({
+      throw new NotFoundException({
         message: 'Something bad happened',
         error: 'Task already exist',
       });
     }
-    // taskDto.status = TaskStatusEnum.BACKLOG;
-    // await this.mailService.sendEmailNotification(
-    //   (req.body as any).email,
-    //   'hmkahsay@gmail.com',
-    //   'Email Notification',
-    //   'EmailEmailEmailEmail',
-    //   'This CC is intended to Hiluf',
-    // );
+
+    const status = await this.taskStatusService.getStatus('back-log');
+    taskDto['statusId'] = status.id;
+    const project = await this.projectService.getProject(req.body.projectId);
+    if (!project) {
+      throw new NotFoundException({
+        message: 'Something bad happened',
+        error: 'Project Not Found',
+      });
+    }
+    taskDto['projectId'] = project.id;
     return await this.taskService.createTask(taskDto);
   }
 
@@ -67,7 +72,6 @@ export class TaskController {
   @Get()
   async getTasks(): Promise<any> {
     const tasks = await this.taskService.getTasks();
-    console.log(tasks);
     if (!tasks) {
       return new NotFoundException({
         message: 'Something bad happened',

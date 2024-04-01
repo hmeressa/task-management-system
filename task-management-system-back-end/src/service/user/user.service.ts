@@ -19,7 +19,7 @@ export class UserService implements UserInterface {
     return savedUser;
   }
 
-  async getUser(id: any): Promise<Object> {
+  async getUser(id: any): Promise<UserModel> {
     return await this.userRepository.findOne({
       where: { id: id },
       relations: ['role', 'role.permission'],

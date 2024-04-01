@@ -26,9 +26,6 @@ export class ProjectModel extends BaseModel {
   @Column()
   isClosed: boolean = false;
 
-  @Column({ nullable: true })
-  projectOwnerId: string;
-
   @OneToMany(() => TaskModel, (task) => task.project)
   task: TaskModel;
 

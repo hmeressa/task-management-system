@@ -4,6 +4,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 import { ProjectModel } from './project.model';
 import { UserModel } from './user.model';
 import { BaseModel } from './base.model';
+import { TaskStatusModel } from './taskStatus.model';
 
 @Entity('tasks')
 export class TaskModel extends BaseModel {
@@ -16,11 +17,11 @@ export class TaskModel extends BaseModel {
   @Column()
   endDate: Date;
 
-  @Column({ nullable: true })
-  status: string;
-
-  @Column({ nullable: true })
+  @Column()
   projectId: string;
+
+  @Column()
+  statusId: string;
 
   @ManyToOne(() => ProjectModel, (project) => project.task)
   project: ProjectModel;
@@ -37,5 +38,8 @@ export class TaskModel extends BaseModel {
       referencedColumnName: 'id',
     },
   })
+  @ManyToOne(() => TaskStatusModel, (status) => status.task)
+  status: TaskStatusModel;
+
   public user: UserModel[];
 }

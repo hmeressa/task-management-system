@@ -10,7 +10,7 @@ export class TaskStatusDto {
   name: string;
 
   @ApiProperty()
-  @IsNotEmpty({ message: 'Please enter task status status [ ]' })
+  @IsNotEmpty({ message: 'Please enter task status [ ]' })
   @IsEnum(TaskStatusEnum)
-  taskStatus: TaskStatusEnum;
+  status: TaskStatusEnum;
 }
