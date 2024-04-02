@@ -45,7 +45,7 @@ export class TaskController {
     }
 
     const status = await this.taskStatusService.getStatus('back-log');
-    taskDto['statusId'] = status.id;
+    taskDto['statusId'] = status?.id;
     const project = await this.projectService.getProject(req.body.projectId);
     if (!project) {
       throw new NotFoundException({
@@ -132,8 +132,6 @@ export class TaskController {
         error: 'User NOT FOUND',
       });
     }
-    console.log(task.id, user);
-
     const userTask = await this.taskService.reAssignTaskToUser(task, user);
     return userTask;
   }

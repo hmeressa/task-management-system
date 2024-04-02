@@ -1,7 +1,6 @@
-version: '1.0'
+version: '3.8'
 
 services:
-
   # Frontend service
   frontend:
     build:
@@ -10,6 +9,8 @@ services:
     container_name: frontend-app-container
     ports:
       - "8000:8000"
+    networks:
+      - frontend-backend-database-network
 
   # Backend service
   backend-app:
@@ -19,16 +20,18 @@ services:
     container_name: backend-app-container
     restart: always
     ports:
-      - 3000:3000
+      - "3000:3000"
     depends_on:
       - database-app
     environment:
       POSTGRES_HOST: database-app
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678910
+      POSTGRES_PASSWORD: 12345678
       POSTGRES_DB: task-management-system-database
       POSTGRES_PORT: 5432
       APP_PORT: 3000
+    networks:
+      - frontend-backend-database-network
 
   # Database service
   database-app:
@@ -36,12 +39,29 @@ services:
     container_name: database-app-container
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678910
+      POSTGRES_PASSWORD: 12345678
       POSTGRES_DB: task-management-system-database
     ports:
-      - 5432:5432
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - "5432:5432"
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+    networks:
+      - frontend-backend-database-network
 
-volumes:
-  postgres_data:
+  # PGAdmin
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   ports:
+  #     - "8888:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: hmeressa@gmail.com
+  #     PGADMIN_DEFAULT_PASSWORD: 12345678
+# volumes:
+#   postgres_data:
+    # driver: local
+
+networks:
+  frontend-backend-database-network:
+
+
