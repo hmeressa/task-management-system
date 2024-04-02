@@ -11,7 +11,7 @@ export  const AllRoutes=()=>{
 const token=localStorage.getItem('token');
   return <BrowserRouter>
        <Routes>
-          <Route path='/login' element={token==null?<LoginComponent />:<SidebarContent />}/>
+          <Route path='/' element={token==null?<LoginComponent />:<SidebarContent />}/>
                <Route path='dashboard' element={token==null?<LoginComponent />:<SidebarContent />}/>
                <Route path="projects" element={token==null?<LoginComponent />:<Projects/>} />
                <Route path="tasks" element={token==null?<LoginComponent />:<AllTasks/>}></Route>

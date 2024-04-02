@@ -10,6 +10,7 @@ const Table = ({data,setDeleteItem,isUserListOpen,setIsUserListOpen,setSelectedT
     const [isDropDown,setIsDropDown]=useState(false);
     const [clickedRow,setClickedRow]=useState('');
     const { id } = useParams();
+    console.log(data,"data");
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">All Tasks</h1>
@@ -39,7 +40,7 @@ const Table = ({data,setDeleteItem,isUserListOpen,setIsUserListOpen,setSelectedT
                     </td>
                     <td className="p-3 px-5">{dateFormat(item?.endDate,"fullDate")}</td>
                     <td className="p-3 px-5">{dateFormat(item?.startDate,"fullDate")}</td>
-                    <td className="p-3 px-5">{bgColor?.[item?.taskStatus?.status] ?? bgColor?.undefined}</td>
+                    <td className="p-3 px-5">{bgColor?.[item?.status?.status] ?? bgColor?.undefined}</td>
                     <td  className="p-3 px-5 font-bold text-3xl relative">
                                    <MoreOutlined className='cursor-pointer' onClick={()=>{setIsDropDown(!isDropDown);setClickedRow(index)}}/>
                                    {isDropDown && clickedRow==index && (  <div className='flex flex-col space-y-2 rounded absolute -right-9 top-9  bg-gray-400 font-serif py-6 px-6  text-xs capitalize cursor-pointer mr-20'>

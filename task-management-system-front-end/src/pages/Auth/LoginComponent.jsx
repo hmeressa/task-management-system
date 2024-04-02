@@ -1,3 +1,4 @@
+import { LoginOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { redirect, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';

@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import CardComponent from '../../component/CardComponent'
 import Layout from '../../component/Layout'
 import { PlusOutlined } from '@ant-design/icons'
-import { addProjectData, deleteProjectData, fetchProjectStatusData } from '../../Store'
+import { addProjectData, deleteProjectData, fetchAllUsersData, fetchProjectStatusData } from '../../Store'
 import CreateProject from './CreateProject'
-function Projects({projects,deleteProjectData,fetchProjectStatusData,addProjectData}) {
+function Projects({users,projects,deleteProjectData,fetchProjectStatusData,addProjectData,fetchAllUsersData}) {
    const [deleteItem,setDeleteItem]=useState('');
    const [editItem,setEditItem]=useState('');
    const [isOpen,setIsOpen]=useState(false);
@@ -16,6 +16,8 @@ function Projects({projects,deleteProjectData,fetchProjectStatusData,addProjectD
    };
       useEffect(()=>{
         fetchProjectStatusData();
+        fetchAllUsersData();
+
       },[]);
 
       if(deleteItem != ''){
@@ -53,6 +55,7 @@ function Projects({projects,deleteProjectData,fetchProjectStatusData,addProjectD
                         title={"Create Project"}
                         open={isOpen}
                         onCancel={()=>setIsOpen(false)}
+                        users={users}
                         onSubmit={(data)=>{
                                   handlePopupSubmit(data);
                                   }}
@@ -67,6 +70,7 @@ export const mapStateToProps=(state)=>{
     projects:state.projectReducer.allProjects,
     error:state.projectReducer.error,
     loading:state.projectReducer.loading,
+    users:state.dashboardReducer.users,
   };
  };
  export const mapDispatchToProps=(dispatch)=>{
@@ -74,6 +78,7 @@ export const mapStateToProps=(state)=>{
      fetchProjectStatusData:() => dispatch(fetchProjectStatusData()),
      deleteProjectData:(id,projects)  => dispatch(deleteProjectData(id,projects)),
      addProjectData: (data,projects) => dispatch(addProjectData(data,projects)),
+    fetchAllUsersData:() => dispatch(fetchAllUsersData()),
    };
  };
  

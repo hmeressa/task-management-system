@@ -23,7 +23,7 @@ import { Link } from 'react-router-dom';
           <div className="flex justify-between p-0 space-x-6 text-xl font-semibold mb-8"><span>{text}</span> <span className='text-3xl'>{icon}</span></div>
           <div className="text-gray-600"> {number}</div>
           {endDate && (<div className="text-gray-600">
-            <span>Start Date: {startDate}</span> - <span className='block'>End Date: {endDate}</span> 
+            <span> Date: {startDate}</span> - <span className='block'>End Date: {endDate}</span> 
           </div>)}
         </div>
       </div>
