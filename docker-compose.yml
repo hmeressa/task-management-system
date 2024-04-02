@@ -23,6 +23,9 @@ services:
       - "3000:3000"
     depends_on:
       - database-app
+    # volumes:
+    #   - ./task-management-system-back-end:/app
+
     environment:
       POSTGRES_HOST: database-app
       POSTGRES_USER: postgres
