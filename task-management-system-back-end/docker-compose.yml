@@ -11,10 +11,13 @@ services:
       - "3000:3000"
     depends_on:
       - database-app
-    # You can add as Optional
-    # environment:
-    #   # DB Host must be the database service name
-    #   DB_HOST: database-app
+    environment:
+      DB_HOST: database-app
+      DB_USERNAME: postgres
+      DB_PASSWORD: 12345678
+      DB_NAME: task-management-system-database
+      DB_PORT: 5432
+      APP_PORT: 3000
     volumes:
       - .:/app
       - /app/node_modules

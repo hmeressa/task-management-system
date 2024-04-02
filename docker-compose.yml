@@ -2,33 +2,46 @@ version: '1.0'
 
 services:
 
+  # Frontend service
+  frontend:
+    build:
+      context: ./task-management-system-front-end
+      dockerfile: Dockerfile.dev
+    container_name: frontend-app-container
+    ports:
+      - "8000:8000"
+
   # Backend service
-  backend-app-1:
+  backend-app:
     build:
       context: ./task-management-system-back-end
       dockerfile: Dockerfile.dev
-    container_name: task-management-system-back-end-1
+    container_name: backend-app-container
     restart: always
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - database-app
-    # environment:
-    #   DB_HOST: database-app  # Use service name as the database host
-      # Add other environment variables as needed
+    environment:
+      POSTGRES_HOST: database-app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678910
+      POSTGRES_DB: task-management-system-database
+      POSTGRES_PORT: 5432
+      APP_PORT: 3000
 
   # Database service
   database-app:
     image: postgres:latest
-    container_name: database-app-container-1
+    container_name: database-app-container
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678
+      POSTGRES_PASSWORD: 12345678910
       POSTGRES_DB: task-management-system-database
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data
+  postgres_data:

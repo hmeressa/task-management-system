@@ -9,11 +9,19 @@ import { Authorization } from './middleware';
 import { UserService } from './service';
 import { UserModel } from './model';
 import * as dotenv from 'dotenv';
-import { typeOrmConfig } from './config';
 dotenv.config();
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(process.env.POSTGRES_PORT, 10),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      entities: [__dirname + '/**/*.model{.ts,.js}'],
+      synchronize: true,
+    }),
     TypeOrmModule.forFeature([UserModel]),
     AllModules,
   ],
