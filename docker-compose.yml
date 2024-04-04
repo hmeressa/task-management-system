@@ -16,6 +16,7 @@ services:
       - backend-app
     volumes:
       - ./task-management-system-front-end:/app
+      - /app/node_modules
 
   # Backend service
   backend-app:
