@@ -2,10 +2,10 @@
 FROM docker/compose:latest
 
 # Copy the docker-compose.yml file
-COPY docker-compose.yml /app
+COPY docker-compose.yml /app/task-management-system/docker-compose.yml
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /app/task-management-system
 
 # Run Docker Compose
 CMD ["docker-compose", "up"]
