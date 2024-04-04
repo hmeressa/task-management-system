@@ -2,7 +2,6 @@ import React from 'react';
 import CardComponent from '../../component/CardComponent';
 
 const TableData = ({ data,setTransferToDone,transferToDone,transferToInProgress,setTransferToInProgress }) => {
-    // console.log(data[0]?.taskStatus.status,"Hiluf");
   return (
     <div>
         <div className='flex justify-between mt-20 mx-10'>

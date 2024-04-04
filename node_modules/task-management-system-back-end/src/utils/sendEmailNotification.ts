@@ -25,10 +25,8 @@ export const sendEmailNotification = async (
 
   await transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log(error);
       return false;
     } else {
-      console.log('Email notiicatio is sent to admin: ' + info.response);
       return true;
     }
   });

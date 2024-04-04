@@ -13,7 +13,6 @@ export class AuthController {
   @Post()
   async authUser(@Body() authDto: AuthDto): Promise<any> {
     const { email, password } = authDto;
-    console.log(email, password);
     const user = await this.userService.getUserByEmail(email);
     if (!user) {
       return new NotFoundException({

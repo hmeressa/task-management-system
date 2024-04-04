@@ -100,7 +100,6 @@ export class ProjectController {
   async getProjectsByPagination(
     @Query() paginationDto: PaginationQueryDto,
   ): Promise<any> {
-    console.log(paginationDto); // Log the actual paginationDto object
     const project =
       await this.projectService.getProjectsByPagination(paginationDto);
     if (!project) {

@@ -3,7 +3,6 @@ import moment from 'moment';
 import { DragDropContext,Draggable,Droppable } from 'react-beautiful-dnd';
 const TaskBoard = ({ data,setTransferToDone,transferToDone,transferToInProgress,setTransferToInProgress,tasks }) => {
    const now=moment();
-  console.log(data,"users data hiluf ");
   const getTasksByStatus = (status) => {
     return data?.filter((item)=>item?.taskStatus?.status==status);
   };

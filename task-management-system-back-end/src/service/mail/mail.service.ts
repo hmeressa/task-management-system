@@ -28,10 +28,8 @@ export class MailService {
 
     await transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
         return false;
       } else {
-        console.log('Email notiication is sent to admin: ' + info.response);
         return true;
       }
     });

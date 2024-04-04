@@ -27,7 +27,6 @@ function ProjectTasks({getProjectById,addTaskToProject,fetchAllUsersData,deleteT
     setDeleteItem('');
   }
   if(selectedTask && assignTo){
-    // console.log("hello assign");
     taskAssignToUser(selectedTask?.id,assignTo,project);
     setSelectedTask('');
     setAssignTo('');

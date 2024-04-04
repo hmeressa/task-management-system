@@ -145,7 +145,6 @@ export class TaskController {
         u === '5192b800-de0c-4654-8d59-4583284277ff';
       }),
     );
-    console.log('allTasks', allTasks.user[0]);
     if (!tasksBelongedToUser) {
       return new NotFoundException({
         message: 'Something bad happened',
@@ -174,7 +173,6 @@ export class TaskController {
         });
       }
     });
-    console.log(userTaskDto);
     return await this.taskService.assignTaskToUser(userTaskDto);
   }
 }

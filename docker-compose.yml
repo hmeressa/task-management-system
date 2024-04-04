@@ -17,6 +17,11 @@ services:
     volumes:
       - ./task-management-system-front-end:/app
       - /app/node_modules
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Backend service
   backend-app:
@@ -41,6 +46,11 @@ services:
       APP_PORT: 3000
     networks:
       - frontend-backend-database-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sSf http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Database service
   database-app:
@@ -56,6 +66,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - frontend-backend-database-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:

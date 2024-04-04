@@ -14,7 +14,6 @@ export class UserService implements UserInterface {
 
   async createUser(userDto: UserDto): Promise<Object> {
     const user = await this.userRepository.create(userDto);
-    console.log(user);
     const savedUser = await this.userRepository.save(user);
     return savedUser;
   }

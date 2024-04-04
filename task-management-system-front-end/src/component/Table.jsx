@@ -10,7 +10,6 @@ const Table = ({data,setDeleteItem,isUserListOpen,setIsUserListOpen,setSelectedT
     const [isDropDown,setIsDropDown]=useState(false);
     const [clickedRow,setClickedRow]=useState('');
     const { id } = useParams();
-    console.log(data,"data");
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">All Tasks</h1>

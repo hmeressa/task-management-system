@@ -18,7 +18,6 @@ export class TaskStatusController {
   async createTaskStatus(
     @Body() taskStatusDto: TaskStatusDto,
   ): Promise<Object> {
-    console.log(taskStatusDto);
     return await this.taskStatusService.createTaskStatus(taskStatusDto);
   }
 
