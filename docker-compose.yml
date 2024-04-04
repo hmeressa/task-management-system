@@ -5,7 +5,7 @@ services:
   # Frontend service
   frontend:
     build:
-      context: ./task-management-system-front-end1
+      context: ./task-management-system-front-end
       dockerfile: Dockerfile.dev
     container_name: frontend-app-container
     ports:
