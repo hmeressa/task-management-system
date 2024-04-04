@@ -1,11 +1,11 @@
 # Use a Docker image that includes Docker Compose
-FROM docker/compose:latest
+FROM render:latest
 
-#Working dir
+# Set the working directory
 WORKDIR /app
 
 # Copy the docker-compose.yml file
-COPY docker-compose.yml ./
+COPY docker-compose.yml /app/docker-compose.yml
 
 # Run Docker Compose
 CMD ["docker-compose", "up"]
