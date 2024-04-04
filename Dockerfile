@@ -1,5 +1,5 @@
 # Use a Docker image that includes Docker Compose
-FROM render:latest
+FROM docker/compose:latest
 
 # Copy the docker-compose.yml file
 COPY docker-compose.yml /app/docker-compose.yml
