@@ -5,7 +5,7 @@ FROM docker/compose:latest
 WORKDIR /app
 
 # Copy the Docker Compose configuration to the /app directory inside the Docker image
-COPY docker-compose.yml docker-compose.yml
+COPY docker-compose.yml /task-management-system-front-end/docker-compose.yml
 
 # Expose ports if needed
 EXPOSE 5000
