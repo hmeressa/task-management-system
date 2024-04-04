@@ -7,12 +7,6 @@ WORKDIR /app
 # Copy the Docker Compose configuration to the /app directory inside the Docker image
 COPY docker-compose.yml docker-compose.yml
 
-# Copy the frontend Dockerfile and related files to the /app/task-management-system-front-end directory
-COPY ./task-management-system-front-end /app/task-management-system-front-end
-
-# Copy the backend Dockerfile and related files to the /app/task-management-system-back-end directory
-COPY ./task-management-system-back-end /app/task-management-system-back-end
-
 # Expose ports if needed
 EXPOSE 5000
 
