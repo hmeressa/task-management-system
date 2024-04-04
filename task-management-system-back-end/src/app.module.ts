@@ -41,17 +41,17 @@ dotenv.config();
     },
   ],
 })
-export class AppModule {}
-// export class AppModule implements NestModule {
-//   configure(consumer: MiddlewareConsumer) {
-//     consumer
-//       .apply(Authorization)
-//       .exclude(
-//         { path: 'auth', method: RequestMethod.ALL }, // Exclude 'auth' endpoints
-//         { path: 'project', method: RequestMethod.ALL }, // Exclude 'project' endpoints
-//         { path: 'user', method: RequestMethod.POST }, // Exclude 'user' POST endpoint
-//         { path: 'role', method: RequestMethod.POST }, // Exclude 'role' POST endpoint
-//       )
-//       .forRoutes('*'); // Apply Authorization middleware to all routes except those excluded
-//   }
-// }
+// export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(Authorization)
+      .exclude(
+        { path: 'auth', method: RequestMethod.ALL }, // Exclude 'auth' endpoints
+        { path: 'project', method: RequestMethod.ALL }, // Exclude 'project' endpoints
+        { path: 'user', method: RequestMethod.POST }, // Exclude 'user' POST endpoint
+        { path: 'role', method: RequestMethod.POST }, // Exclude 'role' POST endpoint
+      )
+      .forRoutes('*'); // Apply Authorization middleware to all routes except those excluded
+  }
+}

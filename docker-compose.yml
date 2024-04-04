@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   # Frontend service
   frontend:
     build:
@@ -11,6 +12,10 @@ services:
       - "8000:8000"
     networks:
       - frontend-backend-database-network
+    depends_on:
+      - backend-app
+    volumes:
+      - ./task-management-system-front-end:/app
 
   # Backend service
   backend-app:
@@ -23,9 +28,9 @@ services:
       - "3000:3000"
     depends_on:
       - database-app
-    # volumes:
-    #   - ./task-management-system-back-end:/app
-
+    volumes:
+      - ./task-management-system-back-end:/app
+      - /app/node_modules
     environment:
       POSTGRES_HOST: database-app
       POSTGRES_USER: postgres
@@ -46,25 +51,14 @@ services:
       POSTGRES_DB: task-management-system-database
     ports:
       - "5432:5432"
-    # volumes:
-    #   - postgres_data:/var/lib/postgresql/data
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - frontend-backend-database-network
 
-  # PGAdmin
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   restart: always
-  #   ports:
-  #     - "8888:80"
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: hmeressa@gmail.com
-  #     PGADMIN_DEFAULT_PASSWORD: 12345678
-# volumes:
-#   postgres_data:
-    # driver: local
+volumes:
+  postgres_data:
+    driver: local
 
 networks:
   frontend-backend-database-network:
-
-
