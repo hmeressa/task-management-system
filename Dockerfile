@@ -1,12 +1,29 @@
-# Use a Docker image that includes Docker Compose
-FROM docker/compose:latest
+# Use a base image that includes Docker Compose
+FROM docker/compose:latest as builder
 
-# Copy the docker-compose.yml file to the root directory
-COPY docker-compose.yml /app/docker-compose.yml
-
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Run Docker Compose
-CMD ["docker-compose", "up"]
+# Copy the entire project directory into the Docker image
+COPY . /app
 
+# Build the application using Docker Compose
+RUN docker-compose build
+
+# Stage 2: Final image
+FROM alpine:latest
+
+# Copy built artifacts from previous stage
+COPY --from=builder /app /app
+
+# Set working directory
+WORKDIR /app
+
+# Expose any necessary ports
+# EXPOSE <port>
+
+# Define any environment variables
+# ENV ...
+
+# Define the command to start the application
+CMD ["docker-compose", "up"]
