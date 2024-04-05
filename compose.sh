@@ -36,6 +36,13 @@ fancy_footer() {
     echo "╚════════════════════════════════════╝"
 }
 
+# Function to start Docker Compose
+start_docker_compose() {
+    echo "Starting Docker Compose..."
+    docker-compose up --build
+    echo "Docker Compose operation completed."
+}
+
 # Function to prompt the user for options
 options() {
     fancy_header # Display fancy header

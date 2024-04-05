@@ -28,7 +28,6 @@ fancy_footer() {
 }
 
 # Function to display fancy option
-# Function to display fancy option
 fancy_option() {
     local number=$1
     local description=$2
@@ -45,8 +44,10 @@ while true; do
     fancy_option "3" "Commit changes"
     fancy_option "4" "Push changes to remote"
     fancy_option "5" "Return to the root directory"
-    fancy_option "6" "Show options again"
-    fancy_option "7" "Show usage information"
+    fancy_option "6" "Create new branch"
+    fancy_option "7" "Checkout branch"
+    fancy_option "8" "List all branches"
+    fancy_option "9" "Show options again"
     fancy_option "0" "Quit"
     fancy_footer
 
@@ -57,12 +58,14 @@ while true; do
         fancy_header
         echo "Checking git status..."
         git status
+        echo "Git status check completed successfully."
         fancy_footer
         ;;
     2)
         fancy_header
         echo "Adding changes..."
         git add .
+        echo "Changes added successfully."
         fancy_footer
         ;;
     3)
@@ -70,27 +73,47 @@ while true; do
         echo "Committing changes..."
         read -p "Enter your commit message: " commit_message
         git commit -m "$commit_message"
+        echo "Changes committed successfully."
         fancy_footer
         ;;
     4)
         fancy_header
         echo "Pushing changes to remote..."
-        git push origin main
+        current_branch=$(git symbolic-ref --short HEAD) # Get the current branch
+        git push origin "$current_branch"               # Push changes to the current branch
+        echo "Changes pushed to remote successfully."
         fancy_footer
         ;;
     5)
         fancy_header
         echo "Returning to the root directory..."
         cd - || exit
+        echo "Returned to the root directory successfully."
         fancy_footer
         ;;
     6)
-        continue # Show options again
+        fancy_header
+        read -p "Enter the name of the new branch: " new_branch_name
+        git checkout main && git pull && git checkout -b "$new_branch_name" && git branch --set-upstream-to=origin/"$new_branch_name" main
+        echo "New branch '$new_branch_name' created and checked out successfully."
+        fancy_footer
         ;;
     7)
         fancy_header
-        usage # Show usage information
+        read -p "Enter the name of the branch to checkout: " branch_name
+        git checkout "$branch_name"
+        echo "Checked out to branch '$branch_name' successfully."
         fancy_footer
+        ;;
+    8)
+        fancy_header
+        echo "Listing all branches..."
+        git branch -a
+        echo "Branches listed successfully."
+        fancy_footer
+        ;;
+    9)
+        continue # Show options again
         ;;
     0)
         fancy_header
