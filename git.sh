@@ -36,6 +36,11 @@ fancy_option() {
     echo "║   $number. $description$padding_str║"
 }
 
+# Function to clear the screen
+clear_screen() {
+    clear
+    echo "Screen cleared."
+}
 # Loop to prompt the user until the user chooses to quit
 while true; do
     fancy_header
@@ -47,7 +52,7 @@ while true; do
     fancy_option "6" "Create new branch"
     fancy_option "7" "Checkout branch"
     fancy_option "8" "List all branches"
-    fancy_option "9" "Show options again"
+    fancy_option "9" "Clear screen"
     fancy_option "0" "Quit"
     fancy_footer
 
@@ -113,7 +118,7 @@ while true; do
         fancy_footer
         ;;
     9)
-        continue # Show options again
+        clear_screen
         ;;
     0)
         fancy_header
